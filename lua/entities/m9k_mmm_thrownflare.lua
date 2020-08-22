@@ -25,7 +25,7 @@ if SERVER then
 	end
 
 	function ENT:StartTouch(Ent)
-		if Ent:GetClass() == "m9k_mmm_thrownflare" then return end
+		if Ent == self.Owner or Ent:GetClass() == "m9k_mmm_thrownflare" then return end
 
 		if CPPIExists and Ent:CPPIGetOwner() == self.Owner or not CPPIExists then
 			Ent:Ignite(5)

@@ -74,8 +74,8 @@ if CLIENT then
 	function SWEP:Initialize() -- We define this here so it does not try to load the VGUI selection material
 		self:SetHoldType(self.HoldType)
 		self.OurIndex = self:EntIndex()
+		self:SetNWBool("ShouldDraw",true)
 
-		self.ShouldDraw = true
 		self.LastViewEntity = NULL
 
 		self:CreateWorldModel()
@@ -102,7 +102,7 @@ function SWEP:PrimaryAttack()
 
 		local vm = self.Owner:GetViewModel()
 		if SERVER or IsValid(vm) then -- SERVER or the CLIENT throwing the grenade
-			if not IsFirstTimePredicted() or game.SinglePlayer() then return end -- Fixes weird prediction bugs.
+			if not IsFirstTimePredicted() then return end -- Fixes weird prediction bugs.
 			local Dur = vm:SequenceDuration() + 0.2
 
 			timer.Create("M9k_MMM_Grenade_Pullpin" .. self.OurIndex,Dur,1,function()
@@ -111,7 +111,7 @@ function SWEP:PrimaryAttack()
 			end)
 
 			if SERVER then
-				timer.Create("M9k_MMM_Grenade_Pullpin_Flare" .. self.OurIndex,Dur - 0.5,1,function()
+				timer.Create("M9k_MMM_Grenade_Pullpin_Flare" .. self.OurIndex,Dur - (game.SinglePlayer() and 0.3 or 0.5),1,function()
 					if not IsValid(self) or not IsValid(self.Owner) or not IsValid(self.Owner:GetActiveWeapon()) or self.Owner:GetActiveWeapon():GetClass() ~= self:GetClass() then return end
 
 					self.burnFX = ents.Create("env_flare")
@@ -182,9 +182,7 @@ function SWEP:Think()
 		self:SendWeaponAnim(ACT_VM_THROW)
 		self:AttackAnimation()
 
-		if CLIENT then
-			self.ShouldDraw = false
-		end
+		self:SetNWBool("ShouldDraw",false)
 
 		if SERVER and IsValid(self) and IsValid(self.Owner) and IsValid(self.burnFX) and self.Owner:GetViewEntity() == self.Owner then
 			self.Owner:SendLua("local Ent = Entity(" .. self.burnFX:EntIndex() .. "); if IsValid(Ent) then Ent:SetNoDraw(true) end")
@@ -242,9 +240,7 @@ function SWEP:Think()
 						self:SetClip1(1)
 					end
 
-					if CLIENT then
-						self.ShouldDraw = true
-					end
+					self:SetNWBool("ShouldDraw",true)
 				end)
 			end)
 		end
