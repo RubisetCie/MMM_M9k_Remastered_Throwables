@@ -56,6 +56,7 @@ if SERVER then
 			if Activator:GetWeapon("m9k_mmm_beer") == NULL then
 				Activator:Give("m9k_mmm_beer")
 				Activator:GiveAmmo(5,"m9k_mmm_beer")
+				Activator:SelectWeapon("m9k_mmm_beer") -- Has no effect in multiplayer in this case but is required in singleplayer!
 			else
 				Activator:GiveAmmo(6,"m9k_mmm_beer")
 			end

@@ -83,6 +83,7 @@ elseif SERVER then -- Make sure Hl2 Episode 1 is mounted!
 			if Activator:GetWeapon("m9k_mmm_flare") == NULL then
 				Activator:Give("m9k_mmm_flare")
 				Activator:GiveAmmo(5,"m9k_mmm_flaregrenade")
+				Activator:SelectWeapon("m9k_mmm_flare") -- Has no effect in multiplayer in this case but is required in singleplayer!
 			else
 				Activator:GiveAmmo(6,"m9k_mmm_flaregrenade")
 			end

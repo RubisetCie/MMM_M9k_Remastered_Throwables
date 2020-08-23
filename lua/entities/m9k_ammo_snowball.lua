@@ -83,6 +83,7 @@ elseif SERVER then -- Make sure CS:GO is mounted!
 			if Activator:GetWeapon("m9k_mmm_snowball") == NULL then
 				Activator:Give("m9k_mmm_snowball")
 				Activator:GiveAmmo(14,"m9k_mmm_snowball")
+				Activator:SelectWeapon("m9k_mmm_snowball") -- Has no effect in multiplayer in this case but is required in singleplayer!
 			else
 				Activator:GiveAmmo(15,"m9k_mmm_snowball")
 			end

@@ -83,6 +83,7 @@ elseif SERVER then -- We make sure that either Left4Dead or Left4Dead2 is instal
 			if Activator:GetWeapon("m9k_mmm_pipebomb") == NULL then
 				Activator:Give("m9k_mmm_pipebomb")
 				Activator:GiveAmmo(5,"m9k_mmm_pipebomb")
+				Activator:SelectWeapon("m9k_mmm_pipebomb") -- Has no effect in multiplayer in this case but is required in singleplayer!
 			else
 				Activator:GiveAmmo(6,"m9k_mmm_pipebomb")
 			end

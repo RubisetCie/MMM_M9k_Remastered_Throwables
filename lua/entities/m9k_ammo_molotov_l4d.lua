@@ -81,8 +81,9 @@ elseif SERVER then -- We make sure that either Left4Dead or Left4Dead2 is instal
 	function ENT:Use(Activator)
 		if Activator:IsPlayer() then
 			if Activator:GetWeapon("m9k_mmm_molotov") == NULL then
-				Activator:Give("m9k_mmm_molotov")
+				Activator:Give("m9k_mmm_molotov_l4d")
 				Activator:GiveAmmo(5,"m9k_mmm_molotov")
+				Activator:SelectWeapon("m9k_mmm_molotov_l4d") -- Has no effect in multiplayer in this case but is required in singleplayer!
 			else
 				Activator:GiveAmmo(6,"m9k_mmm_molotov")
 			end

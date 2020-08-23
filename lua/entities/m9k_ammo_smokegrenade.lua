@@ -83,6 +83,7 @@ elseif SERVER then -- Make sure CSS is mounted!
 			if Activator:GetWeapon("m9k_mmm_smokegrenade") == NULL then
 				Activator:Give("m9k_mmm_smokegrenade")
 				Activator:GiveAmmo(5,"m9k_mmm_smokegrenade")
+				Activator:SelectWeapon("m9k_mmm_smokegrenade") -- Has no effect in multiplayer in this case but is required in singleplayer!
 			else
 				Activator:GiveAmmo(6,"m9k_mmm_smokegrenade")
 			end
