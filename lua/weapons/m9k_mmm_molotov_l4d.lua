@@ -10,6 +10,7 @@ if not IsMounted("left4dead") and not IsMounted("left4dead2") then
 	function SWEP:Initialize()
 		if SERVER then
 			timer.Simple(0,function() -- This needs to be delayed by one tick so that self.Owner is valid!
+				if not IsValid(self) or not IsValid(self.Owner) then return end
 				self.Owner:StripWeapon(self:GetClass())
 				self:Remove()
 			end)
