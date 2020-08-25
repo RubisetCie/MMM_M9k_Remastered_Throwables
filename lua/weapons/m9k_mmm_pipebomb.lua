@@ -10,6 +10,11 @@ if not IsMounted("left4dead") and not IsMounted("left4dead2") then
 	function SWEP:Initialize()
 		if SERVER then
 			timer.Simple(0,function() -- This needs to be delayed by one tick so that self.Owner is valid!
+				if not IsValid(self:GetCreator()) and IsValid(self) then -- When the weapon is spawned through other ways such as the Creator tool
+					self:Remove()
+					return -- We need to return so when someone clicks another player with the Creator, they do not receive the ChatPrint!
+				end
+
 				if not IsValid(self) or not IsValid(self.Owner) then return end
 				self.Owner:ChatPrint("Sorry, that weapon is unavailable!")
 				self.Owner:StripWeapon(self:GetClass())
@@ -24,6 +29,14 @@ if not IsMounted("left4dead") and not IsMounted("left4dead2") then
 
 	function SWEP:Deploy()
 
+	end
+
+	function SWEP:DrawWorldModel()
+		return false
+	end
+
+	function SWEP:ViewModelDrawn()
+		return false
 	end
 
 	return
