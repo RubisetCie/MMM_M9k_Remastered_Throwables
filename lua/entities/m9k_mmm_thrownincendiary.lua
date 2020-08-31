@@ -13,7 +13,6 @@ function ENT:CanTool() return false end
 if SERVER then
 	local MetaE = FindMetaTable("Entity")
 	local CPPIExists = MetaE.CPPIGetOwner and true or false
-	local effectData = EffectData()
 	local CachedVector1 = Vector(0,0,-25)
 
 	function ENT:Initialize()
@@ -54,7 +53,6 @@ if SERVER then
 			end
 
 			local CachedPos = self:GetPos()
-			effectData:SetOrigin(CachedPos)
 			util.Decal("Scorch",CachedPos,CachedPos + CachedVector1,self)
 
 			local CachedOwner = self:GetOwner()

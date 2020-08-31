@@ -28,8 +28,7 @@ if SERVER then
 	local CPPIExists = MetaE.CPPIGetOwner and true or false
 	local CachedColor1 = Color(255,255,255,1)
 	local angle_zero = Angle(0,0,0) -- Better safe than sorry!
-	local dmgInfo = DamageInfo()
-	dmgInfo:SetDamageType(DMG_BURN)
+	local damageInfo = DamageInfo()
 
 	function ENT:Initialize()
 		self:SetModel("models/hunter/plates/plate.mdl")
@@ -73,10 +72,11 @@ if SERVER then
 			v.LastFireTickDamage = v.LastFireTickDamage or 0
 
 			if v.LastFireTickDamage < CurTime() and (CPPIExists and v:CPPIGetOwner() == CachedOwner or (not CPPIExists or (MMM and v:IsPlayer() and (CachedOwner:IsPVP() and v:IsPVP()))) or v == CachedOwner) then
-				dmgInfo:SetDamage(13 + math.random(1,7)) -- For some reason we have to remind the script how much damage to inflict.
-				dmgInfo:SetAttacker(CachedOwner)
-				dmgInfo:SetInflictor(self)
-				v:TakeDamageInfo(dmgInfo)
+				damageInfo:SetDamageType(DMG_BURN)
+				damageInfo:SetAttacker(CachedOwner)
+				damageInfo:SetInflictor(self)
+				damageInfo:SetDamage(13 + math.random(1,7))
+				v:TakeDamageInfo(damageInfo)
 
 				v.LastFireTickDamage = CurTime() + 0.25
 

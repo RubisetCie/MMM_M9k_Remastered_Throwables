@@ -1,47 +1,16 @@
 if not MMM_M9k_IsBaseInstalled then return end -- Make sure the base is installed!
+if game.SinglePlayer() and not IsMounted("csgo") then return end -- In singleplayer we do not even want this to be loaded in the first place!
+if SERVER and not IsMounted("csgo") then
+	SWEP.Base = "meteors_notmounted_base"
+
+	return
+end -- Make sure CS:GO is mounted!
 
 SWEP.Base = "meteors_grenade_base_model"
 SWEP.Category = "M9K Throwables"
 SWEP.PrintName = "Incendiary"
 
 SWEP.Spawnable = true
-
-if not IsMounted("csgo") then
-	function SWEP:Initialize()
-		if SERVER then
-			timer.Simple(0,function() -- This needs to be delayed by one tick so that self.Owner is valid!
-				if not IsValid(self:GetCreator()) and IsValid(self) then -- When the weapon is spawned through other ways such as the Creator tool
-					self:Remove()
-					return -- We need to return so when someone clicks another player with the Creator, they do not receive the ChatPrint!
-				end
-
-				if not IsValid(self) or not IsValid(self.Owner) then return end
-				self.Owner:ChatPrint("Sorry, that weapon is unavailable!")
-				self.Owner:StripWeapon(self:GetClass())
-				self:Remove()
-			end)
-		end
-	end
-
-	function SWEP:Holster()
-		return true
-	end
-
-	function SWEP:Deploy()
-
-	end
-
-	function SWEP:DrawWorldModel()
-		return false
-	end
-
-	function SWEP:ViewModelDrawn()
-		return false
-	end
-
-	return
-end -- Make sure CS:GO is mounted!
-
 SWEP.Slot = 4
 SWEP.UseHands = true
 

@@ -13,8 +13,8 @@ function ENT:CanTool() return false end
 
 if SERVER then
 	local CachedVector1 = Vector(0,0,-25)
+	local AngleCache1 = Angle(-90,0,0)
 	local effectData = EffectData()
-	effectData:SetAngles(Angle(-90,0,0))
 
 	local tSounds = {
 		"weapons/357/357_fire2.wav",
@@ -165,6 +165,11 @@ if SERVER then
 
 	function ENT:Think()
 		if self.DoDecoyThings then
+			effectData:SetAngles(AngleCache1)
+			effectData:SetEntity(self)
+			effectData:SetScale(1) -- These need to be defined
+			effectData:SetMagnitude(1)
+
 			if self.SplodeTime < CurTime() then
 				effectData:SetOrigin(self:GetPos())
 

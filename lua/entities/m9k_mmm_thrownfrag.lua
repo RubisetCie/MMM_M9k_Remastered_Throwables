@@ -14,9 +14,8 @@ function ENT:CanTool() return false end
 if SERVER then
 	local CachedVector1 = Vector(0,0,-25)
 	local VectorCache1 = Vector(0,0,10)
+	local damageInfo = DamageInfo()
 	local effectData = EffectData()
-	local dmgInfo = DamageInfo()
-	dmgInfo:SetDamageType(DMG_BLAST)
 
 	function ENT:Initialize()
 		self:PhysicsInit(SOLID_VPHYSICS)
@@ -40,7 +39,6 @@ if SERVER then
 			self:EmitSound(")weapons/hegrenade/explode" .. math.random(3,5) .. ".wav",120)
 
 			local Pos = self:GetPos()
-
 			effectData:SetOrigin(Pos)
 			util.Effect("HelicopterMegaBomb",effectData)
 			util.Decal("Scorch",Pos,Pos + CachedVector1,self)
@@ -57,12 +55,13 @@ if SERVER then
 				})
 
 				iDamage = math.Clamp(125 - OurPos:DistToSqr(vPos)/500 + 50,5,125)
-				dmgInfo:SetAttacker(self:GetOwner())
-				dmgInfo:SetInflictor(self)
+				damageInfo:SetDamageType(DMG_BLAST)
+				damageInfo:SetAttacker(self:GetOwner())
+				damageInfo:SetInflictor(self)
 
 				if tTrace.Entity == v or tTrace.HitPos == vPos then -- It was a direct hit!
-					dmgInfo:SetDamage(iDamage)
-					v:TakeDamageInfo(dmgInfo)
+					damageInfo:SetDamage(iDamage)
+					v:TakeDamageInfo(damageInfo)
 				else -- There are objects in-between!
 					local Tries = 0
 					local lastStart = OurPos + VectorCache1
@@ -76,8 +75,8 @@ if SERVER then
 
 						if tTrace.Entity == v then -- We hit the player!
 							iDamage = iDamage / (Tries/5) -- The damage is drastically reduced the thicker the wall was!
-							dmgInfo:SetDamage(iDamage)
-							v:TakeDamageInfo(dmgInfo)
+							damageInfo:SetDamage(iDamage)
+							v:TakeDamageInfo(damageInfo)
 							break
 						end
 

@@ -13,9 +13,7 @@ function ENT:CanTool() return false end
 
 if SERVER then
 	util.AddNetworkString("M9k_MMM_Snowball_Overlay")
-
 	local damageInfo = DamageInfo()
-	damageInfo:SetDamageType(DMG_DIRECT)
 
 	function ENT:Initialize()
 		self:PhysicsInit(SOLID_VPHYSICS)
@@ -49,6 +47,7 @@ if SERVER then
 	function ENT:StartTouch(Ent)
 		if Ent == self.Owner or (not Ent:IsNPC() and not Ent:IsPlayer()) then return end
 
+		damageInfo:SetDamageType(DMG_DIRECT)
 		damageInfo:SetAttacker(self.Owner)
 		damageInfo:SetInflictor(self)
 		damageInfo:SetDamage(5 + self.Phys:GetVelocity():Length()/100)

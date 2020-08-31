@@ -11,9 +11,8 @@ ENT.DisableDuplicator = true
 function ENT:CanTool() return false end
 
 if SERVER then
-	local damageInfo = DamageInfo()
-	damageInfo:SetDamageType(DMG_DIRECT)
 	local vector_zero = Vector(0,0,0) -- Imagine having MMM
+	local damageInfo = DamageInfo()
 
 	function ENT:Initialize()
 		self:PhysicsInit(SOLID_VPHYSICS)
@@ -73,6 +72,7 @@ if SERVER then
 			return
 		end
 
+		damageInfo:SetDamageType(DMG_DIRECT)
 		damageInfo:SetAttacker(self.Owner)
 		damageInfo:SetInflictor(self)
 		damageInfo:SetDamage(10 + self.Phys:GetVelocity():Length()/100)

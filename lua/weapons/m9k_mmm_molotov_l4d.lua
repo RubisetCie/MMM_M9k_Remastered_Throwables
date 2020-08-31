@@ -1,47 +1,16 @@
 if not MMM_M9k_IsBaseInstalled then return end -- Make sure the base is installed!
+if game.SinglePlayer() and not IsMounted("left4dead") and not IsMounted("left4dead2") then return end -- In singleplayer we do not even want this to be loaded in the first place!
+if SERVER and not IsMounted("left4dead") and not IsMounted("left4dead2") then
+	SWEP.Base = "meteors_notmounted_base"
+
+	return
+end -- We make sure that either Left4Dead or Left4Dead2 is installed since the models are identical.
 
 SWEP.Base = "meteors_grenade_base_model_instant"
 SWEP.Category = "M9K Throwables"
 SWEP.PrintName = "Molotov (L4D)"
 
 SWEP.Spawnable = true
-
-if not IsMounted("left4dead") and not IsMounted("left4dead2") then
-	function SWEP:Initialize()
-		if SERVER then
-			timer.Simple(0,function() -- This needs to be delayed by one tick so that self.Owner is valid!
-				if not IsValid(self:GetCreator()) and IsValid(self) then -- When the weapon is spawned through other ways such as the Creator tool
-					self:Remove()
-					return -- We need to return so when someone clicks another player with the Creator, they do not receive the ChatPrint!
-				end
-
-				if not IsValid(self) or not IsValid(self.Owner) then return end
-				self.Owner:ChatPrint("Sorry, that weapon is unavailable!")
-				self.Owner:StripWeapon(self:GetClass())
-				self:Remove()
-			end)
-		end
-	end
-
-	function SWEP:Holster()
-		return true
-	end
-
-	function SWEP:Deploy()
-
-	end
-
-	function SWEP:DrawWorldModel()
-		return false
-	end
-
-	function SWEP:ViewModelDrawn()
-		return false
-	end
-
-	return
-end -- We make sure that either Left4Dead or Left4Dead2 is installed since the models are identical.
-
 SWEP.Slot = 4
 SWEP.UseHands = true
 

@@ -11,11 +11,8 @@ ENT.DisableDuplicator = true
 function ENT:CanTool() return false end
 
 if SERVER then
-	local effectData = EffectData()
 	local damageInfo = DamageInfo()
-	damageInfo:SetDamageType(DMG_DIRECT)
-	local dmgInfo = DamageInfo()
-	dmgInfo:SetDamageType(DMG_BLAST)
+	local effectData = EffectData()
 
 	function ENT:Initialize()
 		self:PhysicsInit(SOLID_VPHYSICS)
@@ -44,10 +41,11 @@ if SERVER then
 				self:EmitSound("ambient/fire/gascan_ignite1.wav")
 
 				for _,z in ipairs(ents.FindInSphere(Pos,200)) do -- Damage
-					dmgInfo:SetDamage(25) -- For some reason we have to remind the script how much damage to inflict.
-					dmgInfo:SetAttacker(OwnerCache)
-					dmgInfo:SetInflictor(self)
-					z:TakeDamageInfo(dmgInfo)
+					damageInfo:SetDamageType(DMG_BLAST)
+					damageInfo:SetDamage(25)
+					damageInfo:SetAttacker(OwnerCache)
+					damageInfo:SetInflictor(self)
+					z:TakeDamageInfo(damageInfo)
 				end
 
 				self:Remove()
@@ -67,6 +65,7 @@ if SERVER then
 	function ENT:StartTouch(Ent)
 		if Ent == self.Owner or (not Ent:IsNPC() and not Ent:IsPlayer()) then return end
 
+		damageInfo:SetDamageType(DMG_DIRECT)
 		damageInfo:SetAttacker(self.Owner)
 		damageInfo:SetInflictor(self)
 		damageInfo:SetDamage(20 + self.Phys:GetVelocity():Length()/100)
