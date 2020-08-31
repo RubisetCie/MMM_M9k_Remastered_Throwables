@@ -8,10 +8,10 @@ SWEP.Slot = 4
 SWEP.Spawnable = true
 SWEP.UseHands = true
 
+SWEP.ViewModelFOV = 55
+SWEP.ViewModelFlip = false
 SWEP.ViewModel = "models/weapons/cstrike/c_eq_fraggrenade.mdl"
 SWEP.WorldModel = "models/props_junk/garbage_glassbottle001a.mdl"
-SWEP.ViewModelFlip = false
-SWEP.ViewModelFOV = 55
 
 SWEP.Primary.Ammo = "m9k_mmm_beer"
 
