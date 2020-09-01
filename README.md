@@ -6,6 +6,8 @@ Workshop Link: https://steamcommunity.com/sharedfiles/filedetails/?id=2205783122
 
 **IMPORTANT**: M9k Remastered is required and incompatible with Legacy M9k packs. It is absolutely required to uninstall ALL non-M9k Remastered packs for this to function properly!
 
+Link to M9k Remastered: https://steamcommunity.com/sharedfiles/filedetails/?id=2169649722
+
 # Content
 
 This pack adds a few 'throwables' for you to enjoy, these include:
