@@ -58,7 +58,6 @@ if CLIENT then
 		self:SetHoldType(self.HoldType)
 		self.OurIndex = self:EntIndex()
 
-		self.ShouldDraw = true
 		self.LastViewEntity = NULL
 
 		self:CreateWorldModel()
