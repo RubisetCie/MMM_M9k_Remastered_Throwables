@@ -24,4 +24,4 @@ This pack adds a few 'throwables' for you to enjoy, these include:
 - Smoke Grenade (Requires Counter Strike: Source to be mounted)
 - Snowball (Requires Counter Strike: Global Offensive to be mounted)
 
-If a throwable requires a certain game to be mounted it will simply not load if it is not. The Server needs to have the required game mounted, users that do not have the required game mounted will not be able to spawn them.
+If a throwable requires a certain game to be mounted it will simply not load if it is not. The Server needs to have the required game mounted for that certain throwable to be loaded and function properly. If the Server has the required game mounted but the player(s) don't, they will still be able to spawn and use them, however they might see errors and experience other issues.
