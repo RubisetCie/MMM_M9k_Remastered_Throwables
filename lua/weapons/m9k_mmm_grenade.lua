@@ -19,7 +19,7 @@ SWEP.ViewModelFlip = false
 SWEP.ViewModel = "models/weapons/cstrike/c_eq_fraggrenade.mdl"
 SWEP.WorldModel = "models/weapons/w_eq_fraggrenade.mdl"
 
-SWEP.Primary.Ammo = "m9k_mmm_grenade"
+SWEP.Primary.Ammo = "Grenade"
 
 if CLIENT then
 	local drawSimpleText = draw.SimpleText -- We cache this stuff to prevent overrides.
