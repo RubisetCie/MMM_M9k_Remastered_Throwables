@@ -182,7 +182,7 @@ if SERVER then
 
 		self.iLifeTime = CurTime() + 3
 
-		self.sSoundStr = table.Random(tSounds) -- What sound to spam
+		self.sSoundStr = tSounds[math.random(#tSounds)] -- What sound to spam
 
 	end
 
