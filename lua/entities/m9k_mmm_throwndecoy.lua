@@ -1,6 +1,8 @@
 if not MMM_M9k_IsBaseInstalled then return end -- Make sure the base is installed!
 if SERVER and not IsMounted("csgo") then return end -- Make sure CS:GO is mounted!
+
 AddCSLuaFile()
+
 
 ENT.Type = "anim"
 ENT.PrintName = "Decoy"
@@ -9,12 +11,31 @@ ENT.AdminOnly = true
 ENT.DoNotDuplicate = true
 ENT.DisableDuplicator = true
 
-function ENT:CanTool() return false end
+
+local fReturnFalse = function() -- Save some ram
+	return false
+end
+
+ENT.CanTool = fReturnFalse -- Restrict certain things
+ENT.CanProperty = fReturnFalse
+ENT.PhysgunPickup = fReturnFalse
+
 
 if SERVER then
-	local CachedVector1 = Vector(0,0,-25)
-	local AngleCache1 = Angle(-90,0,0)
-	local effectData = EffectData()
+
+	ENT.GravGunPickupAllowed = fReturnFalse -- This is Serverside only
+	-- We don't allow picking up a decoy with the gravity gun as it can otherwise float when it goes off.
+
+
+	local mathrandom = math.random -- Optimization
+	local utilEffect = util.Effect
+	local CurTime = CurTime
+	local IsValid = IsValid
+
+
+	local vCached1 = Vector(0,0,-25)
+	local aCached1 = Angle(-90,0,0)
+
 
 	local tSounds = {
 		"weapons/357/357_fire2.wav",
@@ -144,77 +165,134 @@ if SERVER then
 		"weapons/xm1014/xm1014-1.wav"
 	}
 
+
+	ENT.iNextSound = 0
+	ENT.iNextSplode = 0
+
+
 	function ENT:Initialize()
+
 		self:PhysicsInit(SOLID_VPHYSICS)
-		self.Phys = self:GetPhysicsObject()
 
 		self:SetTrigger(true)
 
-		self.NextSound = CurTime()
-		self.NextSplode = self.NextSound
-		self.DetonateTime = self.NextSound + 3
-		self.dSound = table.Random(tSounds)
+
+		self.Phys = self:GetPhysicsObject() -- Cache it.
+
+
+		self.iLifeTime = CurTime() + 3
+
+		self.sSoundStr = tSounds[math.random(#tSounds)] -- What sound to spam
+
 	end
 
-	function ENT:PhysicsCollide(Data)
-		if Data.Speed > 100 and Data.DeltaTime > 0.1 and self.NextSound < CurTime() then -- Impact sounds
+
+	function ENT:PhysicsCollide(obj_Data)
+
+		if self.iNextSound < CurTime() and obj_Data.Speed > 100 and obj_Data.DeltaTime > 0.1 then
+
 			self:EmitSound("weapons/hegrenade/he_bounce-1.wav")
-			self.NextSound = CurTime() + 0.5
+			self.iNextSound = CurTime() + 0.2
+
 		end
 	end
 
+
 	function ENT:Think()
-		if self.DoDecoyThings then
-			effectData:SetAngles(AngleCache1)
-			effectData:SetEntity(self)
-			effectData:SetScale(1) -- These need to be defined
-			effectData:SetMagnitude(1)
 
-			if self.SplodeTime < CurTime() then
-				effectData:SetOrigin(self:GetPos())
+		if not self.bDecoy then
 
-				local Pos = self:GetPos()
-				util.Decal("Scorch",Pos,Pos + CachedVector1,self)
-				util.Effect("HelicopterMegaBomb",effectData)
-				self:EmitSound("weapons/hegrenade/hegrenade_detonate_0" .. math.random(1,3) .. ".wav",100)
+			if self.iLifeTime < CurTime() and IsValid(self.Phys) and self.Phys:GetVelocity():Length() < 10 then
+
+				self.bDecoy = true
+				self.iWhenSplode = CurTime() + 15
+
+
+				ParticleEffectAttach("Rocket_Smoke",PATTACH_ABSORIGIN_FOLLOW,self,0)
+
+
+				self.Phys:EnableMotion(false)
+
+			end
+
+
+			return
+
+		else
+
+
+			local obj_EffectData = EffectData()
+			obj_EffectData:SetAngles(aCached1)
+			obj_EffectData:SetEntity(self)
+			obj_EffectData:SetScale(1) -- These need to be defined
+			obj_EffectData:SetMagnitude(1)
+
+
+			if self.iWhenSplode < CurTime() then
+
+				self.Think = nil -- Safeguard
+
+
+				obj_EffectData:SetOrigin(self:GetPos())
+
+
+				local vPos = self:GetPos()
+
+
+				util.Decal("Scorch",vPos,vPos + vCached1,self)
+
+				utilEffect("HelicopterMegaBomb",obj_EffectData)
+
+
+				self:EmitSound("weapons/hegrenade/hegrenade_detonate_0" .. mathrandom(3) .. ".wav",100)
+
 
 				self:Remove()
-			elseif self.NextSplode < CurTime() then
-				self.NextSplode = CurTime() + math.Rand(0.2,1.2)
-				effectData:SetOrigin(self:GetPos())
 
-				if math.random(0,100) > 70 then -- Burst!
-					for I = 0,math.random(2,5) do
+
+			elseif self.iNextSplode < CurTime() then
+
+
+				self.iNextSplode = CurTime() + math.Rand(0.2,1.2)
+
+
+				obj_EffectData:SetOrigin(self:GetPos())
+
+
+				if mathrandom(100) > 70 then -- Burst!
+
+					for I = 0,mathrandom(2,5) do
+
 						timer.Simple(0.05 + (I/10),function()
 							if not IsValid(self) then return end
 
 							if self.sSound then self.sSound:Stop() end -- Stop the last sound so we don't overlap!
-							self.sSound = CreateSound(self,self.dSound)
+
+
+							self.sSound = CreateSound(self,self.sSoundStr)
 							self.sSound:SetSoundLevel(100)
 							self.sSound:Play()
 
-							util.Effect("StunstickImpact",effectData)
-							util.Effect("MuzzleEffect",effectData)
+
+							utilEffect("StunstickImpact",obj_EffectData)
+							utilEffect("MuzzleEffect",obj_EffectData)
+
 						end)
 					end
+
 				else
-					self:EmitSound(self.dSound,100)
-					util.Effect("StunstickImpact",effectData)
-					util.Effect("MuzzleEffect",effectData)
+
+					self:EmitSound(self.sSoundStr,100)
+
+					utilEffect("StunstickImpact",obj_EffectData)
+					utilEffect("MuzzleEffect",obj_EffectData)
+
 				end
-			end
-		elseif self.DetonateTime < CurTime() and IsValid(self.Phys) and self.Phys:GetVelocity():Length() < 10 then
-			self.DoDecoyThings = true
-			self.SplodeTime = CurTime() + 15
-
-			ParticleEffectAttach("Rocket_Smoke",PATTACH_ABSORIGIN_FOLLOW,self,0)
-
-			if IsValid(self.Phys) then
-				self.Phys:EnableMotion(false)
 			end
 		end
 	end
 end
+
 
 if CLIENT then
 	function ENT:Draw()

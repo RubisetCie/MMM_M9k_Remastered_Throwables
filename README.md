@@ -1,27 +1,61 @@
 # M9k Remastered: Throwables
 
-Workshop Link: https://steamcommunity.com/sharedfiles/filedetails/?id=2205783122
+Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2205783122
 
-'Throwables' is an extension for M9k Remastered. It is NOT compatible with Legacy M9k packs.
+# Description:
 
-**IMPORTANT**: M9k Remastered is required and incompatible with Legacy M9k packs. It is absolutely required to uninstall ALL non-M9k Remastered packs for this to function properly!
+**'Throwables' is an extension for M9k Remastered.**
+
+M9k: Remastered is a massive improvement over the original M9k addons.
+
+We dumped the original code and then made new modern code for maximum performance.
+
+⠀
+
+**For the best experience we recommend avoiding playing in Singleplayer.**
+**Start a Multiplayer session instead.**
+
+\> The addon was designed with Multiplayer in mind just like 99% of other addons.
+
+\> We made it compatible with Singleplayer, but you might run into issues.
+
+# Compatibility
+
+M9k: Remastered is **not** compatible with original/legacy M9k addons.
+
+Weapons and packs have to be coded specifically for M9k: Remastered to function properly.
+
+⠀
+
+**All non-M9k: Remastered packs have to be removed.**
 
 Link to M9k Remastered: https://steamcommunity.com/sharedfiles/filedetails/?id=2169649722
 
 # Content
 
-This pack adds a few 'throwables' for you to enjoy, these include:
-- Beer
-- Decoy (Requires Counter Strike: Global Offensive to be mounted)
-- Flare (Requires Half-Life 2: Episode 1 to be mounted)
-- Flashbang (Requires Counter Strike: Source to be mounted)
-- HE Grenade (Requires Counter Strike: Source to be mounted)
-- Incendiary (Requires Counter Strike: Global Offensive to be mounted)
-- Molotov (CS:GO) (Requires Counter Strike: Global Offensive to be mounted)
-- Molotov (L4D) (Requires Left 4 Dead OR Left 4 Dead 2 to be mounted)
-- Pipebomb (Requires Left 4 Dead OR Left 4 Dead 2 to be mounted)
-- Rock
-- Smoke Grenade (Requires Counter Strike: Source to be mounted)
-- Snowball (Requires Counter Strike: Global Offensive to be mounted)
+This pack adds a few throwables for you to enjoy.
 
-If a throwable requires a certain game to be mounted it will simply not load if it is not. The Server needs to have the required game mounted for that certain throwable to be loaded and function properly. If the Server has the required game mounted but the player(s) don't, they will still be able to spawn and use them, however they might see errors and experience other issues.
+Full Weapon list:
+
+Weapon Name | Requirements
+:--|:--
+Beer | -
+Decoy |Counter Strike: Global Offensive
+Flare | Half-Life 2: Episode 1
+Flashbang | Counter Strike: Source
+HE Grenade | Counter Strike: Source
+Incendiary | Counter Strike: Global Offensive
+Molotov (CS:GO) | Counter Strike: Global Offensive
+Molotov (L4D) | Left 4 Dead OR Left 4 Dead 2
+Pipebomb | Left 4 Dead OR Left 4 Dead 2
+Rock | -
+Smoke Grenade | Counter Strike: Source
+Snowball | Counter Strike: Global Offensive
+
+If a required game is not mounted the Weapon will simply not be loaded.
+
+# Credits
+
+*.lua and *.au3 files are made by me. MeteorTheLizard - https://www.meteorthelizard.com
+
+This project is licensed under the GPL-3.0 License. Only script files (*.lua and *.au3) fall under this license.
