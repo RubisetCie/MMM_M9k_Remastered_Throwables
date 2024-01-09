@@ -1,10 +1,10 @@
 if not MMM_M9k_IsBaseInstalled then return end -- Make sure the base is installed!
-if game.SinglePlayer() and not IsMounted("csgo") then return end -- In singleplayer we do not even want this to be loaded in the first place!
-if SERVER and not IsMounted("csgo") then
+if game.SinglePlayer() and not IsMounted("cstrike") then return end -- In singleplayer we do not even want this to be loaded in the first place!
+if SERVER and not IsMounted("cstrike") then
 	SWEP.Base = "meteors_notmounted_base"
 
 	return
-end -- Make sure CS:GO is mounted!
+end -- Make sure CSS is mounted!
 
 SWEP.Base = "meteors_grenade_base_model"
 SWEP.Category = "M9kR: Throwables"
@@ -15,19 +15,19 @@ SWEP.Spawnable = true
 SWEP.ViewModelFOV = 55
 SWEP.ViewModelFlip = false
 SWEP.ViewModel = "models/weapons/cstrike/c_eq_fraggrenade.mdl"
-SWEP.WorldModel = "models/weapons/w_eq_snowball_dropped.mdl"
+SWEP.WorldModel = "models/props/cs_office/snowman_head.mdl"
 
 SWEP.Primary.Ammo = "m9k_mmm_snowball"
 
-SWEP.WorldModelScale = Vector(0.5,0.5,0.5)
-SWEP.ModelWorldForwardMult = 2.6
+SWEP.WorldModelScale = Vector(0.25,0.25,0.25)
+SWEP.ModelWorldForwardMult = 3
 SWEP.ModelWorldRightMult = 2.3
 SWEP.ModelWorldUpMult = -0.5
 SWEP.ModelWorldAngForward = -90
 SWEP.ModelWorldAngRight = -40
 SWEP.ModelWorldAngUp = 110
 
-SWEP.ViewModelScale = Vector(0.5,0.5,0.5)
+SWEP.ViewModelScale = Vector(0.25,0.25,0.25)
 SWEP.ModelViewForwardMult = 4
 SWEP.ModelViewRightMult = 2.1
 SWEP.ModelViewUpMult = -0.3
@@ -42,10 +42,10 @@ SWEP.ModelViewBlacklistedBones = {
 }
 
 SWEP.GrenadeClassEnt = "m9k_mmm_thrownsnowball"
-SWEP.GrenadeModelStr = "models/weapons/w_eq_snowball_dropped.mdl"
+SWEP.GrenadeModelStr = "models/props/cs_office/snowman_head.mdl"
 SWEP.GrenadeNoPin = true
 
-SWEP.ThrowSound = "player/winter/snowball_throw_03.wav"
+SWEP.ThrowSound = "weapons/iceaxe/iceaxe_swing1.wav"
 
 if CLIENT then
 

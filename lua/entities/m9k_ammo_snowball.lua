@@ -1,6 +1,6 @@
 if not MMM_M9k_IsBaseInstalled then return end -- Make sure the base is installed!
 
-if not IsMounted("csgo") then -- Make sure csgo is mounted.
+if not IsMounted("cstrike") then -- Make sure css is mounted.
 	function ENT:Initialize()
 		if SERVER then
 			self:Remove()
