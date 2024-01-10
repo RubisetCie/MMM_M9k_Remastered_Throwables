@@ -1,5 +1,5 @@
 if not MMM_M9k_IsBaseInstalled then return end -- Make sure the base is installed!
-if SERVER and not IsMounted("cstrike") then return end -- Make sure CS:GO is mounted!
+if SERVER and not IsMounted("cstrike") then return end -- Make sure css is mounted!
 
 AddCSLuaFile()
 
