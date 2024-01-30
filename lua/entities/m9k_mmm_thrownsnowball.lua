@@ -1,5 +1,5 @@
 if not MMM_M9k_IsBaseInstalled then return end -- Make sure the base is installed!
-if SERVER and not IsMounted("csgo") then return end -- Make sure CS:GO is mounted!
+if SERVER and not IsMounted("cstrike") then return end -- Make sure css is mounted!
 
 AddCSLuaFile()
 
@@ -36,7 +36,7 @@ if SERVER then
 		end
 
 
-		self:EmitSound("player/winter/snowball_hit_0" .. math.random(4) .. ".wav")
+		self:EmitSound("physics/surfaces/sand_impact_bullet" .. math.random(4) .. ".wav")
 
 
 		for _,v in ipairs(ents.FindInSphere(self:GetPos(),50)) do -- Fire does not like water
@@ -157,6 +157,11 @@ if CLIENT then
 
 
 	function ENT:Draw()
+		if not self._MMMScaled then
+			self:SetModelScale(0.5)
+			self._MMMScaled = true
+		end
+
 		self:DrawModel()
 	end
 end

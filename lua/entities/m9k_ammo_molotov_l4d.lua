@@ -14,7 +14,7 @@ AddCSLuaFile()
 
 ENT.Base = "m9kr_base_ammo"
 ENT.Category = "M9kR: Ammunition"
-ENT.PrintName = "[T] Molotovs (L4D)"
+ENT.PrintName = "[T] Molotovs"
 ENT.Spawnable = true
 
 ENT.AmmoClass		= "m9k_mmm_molotov"

@@ -53,7 +53,6 @@ if CLIENT then
 	languageAdd("m9k_mmm_flaregrenade_ammo","Flare")
 	languageAdd("m9k_mmm_flashbang_ammo","Flashbang")
 	languageAdd("m9k_mmm_grenade_ammo","HE Grenade")
-	languageAdd("m9k_mmm_incendiary_ammo","Incendiary")
 	languageAdd("m9k_mmm_molotov_ammo","Molotov")
 	languageAdd("m9k_mmm_pipebomb_ammo","Pipebomb")
 	languageAdd("m9k_mmm_rocks_ammo","Rocks")

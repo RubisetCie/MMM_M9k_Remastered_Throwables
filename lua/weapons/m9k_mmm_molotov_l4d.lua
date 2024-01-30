@@ -8,7 +8,7 @@ end -- We make sure that either Left4Dead or Left4Dead2 is installed since the m
 
 SWEP.Base = "meteors_grenade_base_model"
 SWEP.Category = "M9kR: Throwables"
-SWEP.PrintName = "Molotov (L4D)"
+SWEP.PrintName = "Molotov"
 
 SWEP.Spawnable = true
 
