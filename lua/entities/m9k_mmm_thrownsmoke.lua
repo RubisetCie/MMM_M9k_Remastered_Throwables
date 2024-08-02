@@ -175,7 +175,7 @@ if CLIENT then
 
 			if eSmoke.bWentOff then
 
-				surfaceSetDrawColor(Color(100,100,100, mathClamp(255 - me:GetPos():DistToSqr(eSmoke:GetPos()) / 100 + 50,0,255) ))
+				surfaceSetDrawColor(Color(100,100,100, mathClamp(255 - LocalPlayer():GetPos():DistToSqr(eSmoke:GetPos()) / 100 + 50,0,255) ))
 				surfaceDrawRect(0,0,iSCRw,iSCRh)
 
 			end
