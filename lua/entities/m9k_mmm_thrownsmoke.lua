@@ -37,6 +37,7 @@ if SERVER then
 
 
 		self.iLifeTime = CurTime() + 3
+		self.iExplodeTimer = 0
 
 	end
 
@@ -53,20 +54,27 @@ if SERVER then
 
 	function ENT:Think()
 
-		if not self.bWentOff and self.iLifeTime < CurTime() then
-
-			self.bWentOff = true -- Only trigger once!
+		if not self.bWentOff then
 
 
-			local obj_Phys = self:GetPhysicsObject()
+			self.Phys = self.Phys or self:GetPhysicsObject()
+
+			if IsValid(self.Phys) and self.Phys:GetVelocity():Length() < 10 then
+				self.iExplodeTimer = self.iExplodeTimer + 1
+			else
+				self.iExplodeTimer = 0
+			end
 
 
-			if IsValid(obj_Phys) and obj_Phys:GetVelocity():Length() < 10 then
+			if self.iExplodeTimer >= 5 and self.iLifeTime < CurTime() then
+
+				self.bWentOff = true -- Only trigger once!
+
 
 				SafeRemoveEntityDelayed(self,25) -- Smoke isn't infinite!
 
 
-				obj_Phys:EnableMotion(false)
+				self.Phys:EnableMotion(false)
 
 
 				self:EmitSound("weapons/smokegrenade/smoke_emit.wav",90)
@@ -167,7 +175,7 @@ if CLIENT then
 
 			if eSmoke.bWentOff then
 
-				surfaceSetDrawColor(Color(100,100,100, mathClamp(255 - me:GetPos():DistToSqr(eSmoke:GetPos()) / 100 + 50,0,255) ))
+				surfaceSetDrawColor(Color(100,100,100, mathClamp(255 - LocalPlayer():GetPos():DistToSqr(eSmoke:GetPos()) / 100 + 50,0,255) ))
 				surfaceDrawRect(0,0,iSCRw,iSCRh)
 
 			end
