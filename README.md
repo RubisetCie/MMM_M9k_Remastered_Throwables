@@ -29,15 +29,15 @@ Full weapon list:
 Weapon Name | Requirements
 :--|:--
 Beer | -
-Decoy |Counter Strike: Source
+Decoy |Counter-Strike: Source
 Flare | Half-Life 2: Episode 1
-Flashbang | Counter Strike: Source
-HE Grenade | Counter Strike: Source
+Flashbang | Counter-Strike: Source
+HE Grenade | Counter-Strike: Source
 Molotov | Left 4 Dead OR Left 4 Dead 2
 Pipebomb | Left 4 Dead OR Left 4 Dead 2
 Rock | -
-Smoke Grenade | Counter Strike: Source
-Snowball | Counter Strike: Source
+Smoke Grenade | Counter-Strike: Source
+Snowball | Counter-Strike: Source
 
 If a required game is not mounted the weapon will simply not be loaded.
 
